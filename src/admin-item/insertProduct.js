@@ -144,8 +144,8 @@ const InsertProduct = () => {
                        
                     <div className="form-group ">
                         <label className="text-muted">Packing Type</label><br></br>
-                        <input type="radio" id="repack" name="item_type" value="Repack" />
-                        <label >&nbsp;Repack</label>
+                        <input type="radio" id="repack" name="item_type" value="Prepack" />
+                        <label >&nbsp;Prepack</label>
                         <br></br>
                         <input type="radio" id="loosePack" name="item_type" value="Loose Pack" />
                         <label>&nbsp;Loose Pack</label><br></br>

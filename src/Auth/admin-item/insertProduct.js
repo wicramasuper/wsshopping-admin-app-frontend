@@ -1,4 +1,4 @@
-//import {API} from "../../config";
+import {API} from "../../config";
 
 
 
@@ -6,7 +6,7 @@ export const insertProduct = product =>{
 
 
 
-    return fetch(`http://localhost:9000/admin/product/insert`,{
+    return fetch(`${API}/admin/product/insert`,{
         method: "POST",
 
         headers:{
