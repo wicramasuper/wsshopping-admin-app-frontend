@@ -78,8 +78,9 @@ const UpdateProduct = ({match}) => {
         event.preventDefault();
 
         setValues({...values,error:'',loading:true});
-
-
+        
+        var x = window.confirm("are you sure ?");
+        if(x===true) {
         // eslint-disable-next-line no-undef
         updateProduct(match.params.productId,formData).then(data =>{
             
@@ -110,7 +111,7 @@ const UpdateProduct = ({match}) => {
             }
 
 
-        });
+        })};
 
     };
 
@@ -155,7 +156,7 @@ const UpdateProduct = ({match}) => {
                 <div className="form-group col-sm-6">
                     <div className="form-group">
                         <label className="text-muted">Product Code</label>
-                        <input onChange={handleChange('item_code')} type="text" className="form-control" value={item_code} />
+                        <input onChange={handleChange('item_code')} type="text" className="form-control" value={item_code} readOnly />
                     </div>
 
                     <div className="form-group">
@@ -248,7 +249,7 @@ const showLoading = () =>
             }
         }
     return (
-        <Layout title="Insert" description="Add a New product" className="container col-md-8 offset-md-2">
+        <Layout title="Update" description="update existing product" className="container col-md-8 offset-md-2">
 
             
             {showError()}

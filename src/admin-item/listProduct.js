@@ -48,23 +48,23 @@ const ManageProductList =()=>{
 
     return(
         <Layout title="Manage Product"
-    description="Manage Crud Product" className="container-fluid">
+    description="Manage Crud Product" className="col-md-8 offset-md-2">
 <div className="row">
             
             <div className="col-12">
-                <h2 className="text-center">Total {products.length}</h2>
+                <h2 className="text-center">Total Products : {products.length}</h2>
                <hr/>
                 <ul className="list-group">
                     {products.map((p,i)=>(
                         
-                        <li key={i} className="list-group-item d-flex justify-content-between align-items-center">
-                        <strong>{p.item_name}</strong>
+                        <li key={i} className="list-group-item d-flex justify-content-between align-items-center"> 
+                        <strong className="p-2 flex-fill">{p.item_name}</strong>
                         <Link to={`/updateProduct/${p._id}`}>
-                            <span className="badge badge-warning">Update</span>
+                            <span  className="badge badge-warning p-2 flex-fill" style={{margin:"10px 20px 10px 20px"}}>Update</span>
                         </Link>
                         
                         
-                        <span onClick={()=>destroy(p._id)} className="badge badge-danger badge=pill" style={{cursor: "pointer"}}>Delete</span>
+                        <span onClick={()=>destroy(p._id)} className="badge badge-danger badge=pill p-2" style={{cursor: "pointer"}}>Delete</span>
                         
                         </li> 
                     ))}
