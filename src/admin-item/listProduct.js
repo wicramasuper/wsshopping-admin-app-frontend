@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 //Insert product API
 import { FaSearch } from 'react-icons/fa';
 
-
+import Sidebar from '../core/sidebar';
 
 import { getProductsList, deleteProduct } from "../Auth/admin-item/listProduct";
 
@@ -88,8 +88,7 @@ const ManageProductList = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     return (
-        <Layout title="Manage Product"
-            description="Manage Crud Product" className="col-md-8 offset-md-2">
+        <Sidebar>
             <div className="row">
                 <div className="container mb-3">
 
@@ -150,10 +149,10 @@ const ManageProductList = () => {
 
             </div>
 
+                            
 
 
-
-        </Layout>
+            </Sidebar>
 
 
 

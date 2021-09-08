@@ -42,7 +42,7 @@ const Sidebar =({children})=>(
       
     </li>
     <li class="has-dropdown">
-      <i class="uil-envelope-download fa-fw"></i><Link to="/"> Item Management</Link>
+      <i class="uil-envelope-download fa-fw"></i><Link to="/admin/manageProduct"> Item Management</Link>
       
     </li>
     <li class="has-dropdown">
