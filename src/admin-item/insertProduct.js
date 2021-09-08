@@ -1,5 +1,6 @@
 import React,{useState} from 'react';
-import Layout from '../core/layout';
+//import Layout from '../core/layout';
+import Sidebar from '../core/sidebar';
 //Insert product API
 
 import {insertProduct} from "../Auth/admin-item/insertProduct";
@@ -207,14 +208,14 @@ const showLoading = () =>
         );
 
     return (
-        <Layout title="Insert" description="Add a New product" className="container col-md-8 offset-md-2">
-
-            
-            {showError()}
-            {showSuccess()}
-            {showLoading()}
-            {newPostForm()}
-        </Layout>
+       
+        
+       
+         <Sidebar>{showError()}
+         {showSuccess()}
+         {showLoading()}
+         {newPostForm()}</Sidebar>
+        
     );
 };
 
