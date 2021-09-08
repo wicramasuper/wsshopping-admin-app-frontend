@@ -1,5 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import Layout from '../core/layout';
+import Sidebar from '../core/sidebar';
 //Insert product API
 
 import {getProduct,updateProduct} from "../Auth/admin-item/updateProduct";
@@ -249,7 +250,7 @@ const showLoading = () =>
             }
         }
     return (
-        <Layout title="Update" description="update existing product" className="container col-md-8 offset-md-2">
+        <Sidebar>
 
             
             {showError()}
@@ -257,7 +258,7 @@ const showLoading = () =>
             {showLoading()}
             {newPostForm()}
             {redirectUser()}
-        </Layout>
+            </Sidebar>
     );
 };
 
