@@ -38,11 +38,11 @@ const Sidebar =({children})=>(
       <i class="uil-folder"></i><Link to="/">Inventory</Link>
     </li>
     <li class="has-dropdown">
-      <i class="uil-calendar-alt"></i><Link  to="/admin/insertProduct">New Item</Link>
+      <i class="uil-calendar-alt"></i><Link  to="/admin/insertProduct">Insert Item</Link>
       
     </li>
     <li class="has-dropdown">
-      <i class="uil-envelope-download fa-fw"></i><Link to="/admin/manageProduct"> Item Management</Link>
+      <i class="uil-envelope-download fa-fw"></i><Link to="/admin/manageProduct"> Item Menu</Link>
       
     </li>
     <li class="has-dropdown">

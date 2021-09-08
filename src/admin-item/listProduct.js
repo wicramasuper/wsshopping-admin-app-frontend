@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Layout from '../core/layout';
+//import Layout from '../core/layout';
 import { Link } from 'react-router-dom';
 //Insert product API
 import { FaSearch } from 'react-icons/fa';
@@ -24,7 +24,7 @@ const ManageProductList = () => {
 
 
     const destroy = productId => {
-        var x = window.confirm("are you sure ?");
+        var x = window.confirm("Are you sure you want to delete this post ? ");
 
 
         if (x === true) {
@@ -129,7 +129,7 @@ const ManageProductList = () => {
                                 <li key={i} className="list-group-item d-flex justify-content-between align-items-center">
                                     <strong className="p-2" >{p.item_code}</strong>
                                     <strong className="p-2 flex-fill" >{p.item_name}</strong>
-                                    <Link to={``}>
+                                    <Link to={`/getSingleProduct/${p._id}`}>
                                         <span className="badge badge-success p-2 flex-fill" style={{ margin: "10px 0px 10px 20px" }}>View</span>
                                     </Link>
                                     <Link to={`/updateProduct/${p._id}`}>

@@ -12,7 +12,22 @@ import emptyImage from '../Images/blank-img.jpg';
 
 const InsertProduct = () => {
 
-    
+    /*
+    const [imgPreview,setImgPreview] = useState(null);
+
+    const imageHandler = (e) =>{
+        
+        const selected = e.target.files[0];
+        let reader = new FileReader();
+        reader.onload = () =>{
+            setImgPreview(reader.result);
+
+        }
+        reader.readAsDataURL(selected);
+
+    }
+
+    */
 
     const [values,setValues] = useState({
         item_code : '',
@@ -34,6 +49,7 @@ const InsertProduct = () => {
     
     const {item_code,item_name,item_quantity,item_weight,item_price,item_shipping,item_description,formData,error,insertedProduct,loading} = values;
 
+  
     const handleChange = name => event => {
 
         const value=name==='item_image' ? event.target.files[0] :event.target.value;
@@ -95,11 +111,26 @@ const InsertProduct = () => {
                         <img src={emptyImage} alt={"empty"} style={{ height: "254px" }} />
 
                     </div>
+                    {/*}
+                    <div className="imagePreview" style={{ background : imgPreview?`url("${imgPreview}") no repeat center/cover` :"#131313"}}>
+                        {!imgPreview&&(
+                            
+                            <p>Add An Image</p>
+                            
+                        )}
 
+                    </div>
+                    <div>
+                    {imgPreview&&(
+                        <p>{imgPreview}</p>
+                        )}
+    
+                    </div>
+                    {*/}
                     <div className="form-group">
                         <label className="text-muted">Product Image</label><br></br>
                         <label className="btn btn-secondary">
-                            <input onChange={handleChange('item_image')} type="file" name="item_image" accept="image/*" />
+                            <input onChange={handleChange("item_image")}  type="file" name="item_image" accept="image/*" />
                         </label>
                     </div>
 
@@ -186,6 +217,10 @@ const InsertProduct = () => {
         </form>
   //      </div>
     );
+
+
+
+
 
     //show success or failure
 const showError = () => (

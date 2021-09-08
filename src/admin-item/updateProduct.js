@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import Layout from '../core/layout';
+//import Layout from '../core/layout';
 import Sidebar from '../core/sidebar';
 //Insert product API
 
@@ -11,6 +11,7 @@ import { Redirect } from 'react-router-dom';
 import emptyImage from '../Images/blank-img.jpg';
 
 
+import ShowImage from '../Auth/admin-item/ShowImageUpdate';
 
 const UpdateProduct = ({match}) => {
 
@@ -34,7 +35,7 @@ const UpdateProduct = ({match}) => {
         formData : new FormData()
     });
     
-    const {item_code,item_name,item_quantity,item_weight,item_price,item_category,item_shipping,item_description,redirectToHome,formData,error,insertedProduct,loading} = values;
+    const {item_code,item_name,item_quantity,item_weight,item_price,item_category,item_image,item_shipping,item_description,redirectToHome,formData,error,insertedProduct,loading} = values;
 
     useEffect(() => {
         init(match.params.productId);
@@ -48,14 +49,16 @@ const UpdateProduct = ({match}) => {
                 //populate the state 
                 setValues({...values,item_name:product.item_name,item_description:product.item_description,item_code:product.item_code,
                 item_quantity:product.item_quantity,item_weight:product.item_weight,item_price:product.item_price,
-                item_shipping:product.item_shipping,item_category:product.item_category
+                item_shipping:product.item_shipping,item_category:product.item_category,item_image:product.item_image
 
+                
                 
                 });
     
     
             }
         })
+        
     }
     
 
@@ -80,7 +83,7 @@ const UpdateProduct = ({match}) => {
 
         setValues({...values,error:'',loading:true});
         
-        var x = window.confirm("are you sure ?");
+        var x = window.confirm("Are you sure you want to update this product ?");
         if(x===true) {
         // eslint-disable-next-line no-undef
         updateProduct(match.params.productId,formData).then(data =>{
@@ -128,9 +131,10 @@ const UpdateProduct = ({match}) => {
                 <div className="form-group col-sm-6">
 
                     <div className="form-group">
-                        <img src={emptyImage} alt={"empty"} style={{ height: "254px" }} />
-
+                        
+                        <ShowImage item={match.params.productId} url="product" style={{ height: "254px" }} ></ShowImage> 
                     </div>
+                    
 
                     <div className="form-group">
                         <label className="text-muted">Product Image</label><br></br>
@@ -139,6 +143,7 @@ const UpdateProduct = ({match}) => {
                         </label>
                     </div>
 
+                    
                     <div className="form-group">
                         <label className="text-muted">Quantity</label>
                         <input onChange={handleChange('item_quantity')} type="text" className="form-control" value={item_quantity} />
@@ -222,6 +227,8 @@ const UpdateProduct = ({match}) => {
         </form>
   //      </div>
     );
+
+    
 
     //show success or failure
 const showError = () => (
