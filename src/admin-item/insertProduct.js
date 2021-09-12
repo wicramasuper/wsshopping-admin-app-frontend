@@ -212,7 +212,7 @@ useEffect(() => {
                     </div>
     
                     <div className="form-group">
-                        <label className="text-muted">Weight</label>
+                        <label className="text-muted">Unit</label>
                         <input onChange={handleChange('item_weight')} type="text" className="form-control" value={item_weight} required/>
                     </div>
 
