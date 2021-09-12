@@ -9,6 +9,7 @@ import updateProduct from '../../admin-item/updateProduct';
 import getSingleProduct from '../../admin-item/singleProduct';
 import insertCategory from '../../admin-item/insertCategory';
 
+
 const Routes =()=>{
     return (
         <BrowserRouter>
@@ -21,6 +22,7 @@ const Routes =()=>{
                 <Route path="/updateProduct/:productId" exact component={updateProduct}/>
                 <Route path="/getSingleProduct/:productId" exact component={getSingleProduct}/>
                 <Route path="/admin/insertCategory" exact component={insertCategory}/>
+                
                
             </Switch>
         </BrowserRouter>

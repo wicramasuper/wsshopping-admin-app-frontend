@@ -46,6 +46,10 @@ const Sidebar =({children})=>(
       
     </li>
     <li class="has-dropdown">
+      <i class="uil-envelope-download fa-fw"></i><Link to="/admin/insertCategory"> Category Menu</Link>
+      
+    </li>
+    <li class="has-dropdown">
       <i class="uil-shopping-cart-alt"></i><Link to="/">Promotions</Link>
       
     </li>

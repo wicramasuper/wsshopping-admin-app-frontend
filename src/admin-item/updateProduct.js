@@ -13,6 +13,7 @@ import ShowImage from '../Auth/admin-item/ShowImageUpdate';
 const UpdateProduct = ({match}) => {
 
     
+    
 
     const [values,setValues] = useState({
         item_code : '',

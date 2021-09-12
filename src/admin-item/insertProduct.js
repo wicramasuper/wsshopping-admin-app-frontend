@@ -1,9 +1,10 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 //import Layout from '../core/layout';
 import Sidebar from '../core/sidebar';
 //Insert product API
 
 import {insertProduct} from "../Auth/admin-item/insertProduct";
+import {getCategories} from "../Auth/admin-item/getCategory";
 
 //empty image
 import emptyImage from '../Images/blank-img.jpg';
@@ -11,6 +12,30 @@ import emptyImage from '../Images/blank-img.jpg';
 
 
 const InsertProduct = () => {
+
+
+
+// load categories and set form data
+const init = () => {
+    getCategories().then(data => {
+        if (data.error) {
+            setValues({ ...values, error: data.error });
+        } else {
+            setValues({
+                ...values,
+                categories: data,
+                formData: new FormData()
+            });
+        }
+    });
+};
+
+useEffect(() => {
+    init();
+}, []);
+
+
+
 
     /*
     const [imgPreview,setImgPreview] = useState(null);
@@ -32,7 +57,7 @@ const InsertProduct = () => {
     const [values,setValues] = useState({
         item_code : '',
         item_name : '',
-        ite_category : '',
+        item_category : '',
         item_type : '',
         item_quantity : '',
         item_image : '',
@@ -44,10 +69,11 @@ const InsertProduct = () => {
         error:'',
         insertedProduct:'',
         redirectToHome:false,
+        categories: [],
         formData : new FormData()
     });
     
-    const {item_code,item_name,item_quantity,item_weight,item_price,item_shipping,item_description,formData,error,insertedProduct,loading} = values;
+    const {categories,item_code,item_name,item_quantity,item_weight,item_price,item_shipping,item_description,formData,error,insertedProduct,loading} = values;
 
   
     const handleChange = name => event => {
@@ -75,7 +101,7 @@ const InsertProduct = () => {
                 setValues({...values,
                     item_code : '',
                     item_name : '',
-                    ite_category : '',
+                    item_category : '',
                     item_type : '',
                     item_quantity : '',
                     item_image : '',
@@ -165,14 +191,14 @@ const InsertProduct = () => {
                     <div className="form-group">
                         <label className="text-muted">Product Category</label>
                         <select onChange={handleChange('item_category')} className="form-control">
-                            <option>Please select</option>
-                            <option value="Stationary">Stationary</option>
-                            <option value="Beverages">Beverages</option>
-                            <option value="Fruits">Fruits</option>
-                            <option value="Vegetable">Vegetable</option>
-                            <option value="Grocery">Grocery</option>
-
-                        </select>
+                    <option>Please select</option>
+                    {categories &&
+                        categories.map((c, i) => (
+                            <option key={i} value={c.category}>
+                                {c.category}
+                            </option>
+                        ))}
+                </select>
                     </div>
 
                        
