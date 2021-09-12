@@ -31,7 +31,7 @@ const Sidebar =({children})=>(
 
   <ul class="categories list-unstyled">
     <li class="has-dropdown">
-      <i class="uil-estate fa-fw"></i><Link style={{color:"red",fontSize:"22px"}} to="/"> Admin Dashboard</Link>
+      <i class="uil-estate fa-fw"></i><Link style={{color:"red",fontSize:"20px"}} to="/"> Admin Dashboard</Link>
       
     </li>
     <li class="">

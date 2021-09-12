@@ -7,6 +7,7 @@ import InsertProduct from '../../admin-item/insertProduct';
 import manageProductList from '../../admin-item/listProduct';
 import updateProduct from '../../admin-item/updateProduct';
 import getSingleProduct from '../../admin-item/singleProduct';
+import insertCategory from '../../admin-item/insertCategory';
 
 const Routes =()=>{
     return (
@@ -19,6 +20,7 @@ const Routes =()=>{
                 <Route path="/admin/manageProduct" exact component={manageProductList}/>
                 <Route path="/updateProduct/:productId" exact component={updateProduct}/>
                 <Route path="/getSingleProduct/:productId" exact component={getSingleProduct}/>
+                <Route path="/admin/insertCategory" exact component={insertCategory}/>
                
             </Switch>
         </BrowserRouter>

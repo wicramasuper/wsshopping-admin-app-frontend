@@ -7,9 +7,6 @@ import {getProduct,updateProduct} from "../Auth/admin-item/updateProduct";
 
 import { Redirect } from 'react-router-dom';
 
-//empty image
-import emptyImage from '../Images/blank-img.jpg';
-
 
 import ShowImage from '../Auth/admin-item/ShowImageUpdate';
 
@@ -35,7 +32,7 @@ const UpdateProduct = ({match}) => {
         formData : new FormData()
     });
     
-    const {item_code,item_name,item_quantity,item_weight,item_price,item_category,item_image,item_shipping,item_description,redirectToHome,formData,error,insertedProduct,loading} = values;
+    const {item_code,item_name,item_quantity,item_weight,item_price,item_category,item_shipping,item_description,redirectToHome,formData,error,insertedProduct,loading} = values;
 
     useEffect(() => {
         init(match.params.productId);
@@ -132,7 +129,7 @@ const UpdateProduct = ({match}) => {
 
                     <div className="form-group">
                         
-                        <ShowImage item={match.params.productId} url="product" style={{ height: "254px" }} ></ShowImage> 
+                        <ShowImage item={match.params.productId} url="product" style={{ maxHeight: "252px" }} ></ShowImage> 
                     </div>
                     
 
@@ -140,7 +137,9 @@ const UpdateProduct = ({match}) => {
                         <label className="text-muted">Product Image</label><br></br>
                         <label className="btn btn-secondary">
                             <input onChange={handleChange('item_image')} type="file" name="item_image" accept="image/*" />
+                       
                         </label>
+                        
                     </div>
 
                     

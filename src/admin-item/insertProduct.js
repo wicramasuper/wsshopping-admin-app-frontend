@@ -108,7 +108,7 @@ const InsertProduct = () => {
                 <div className="form-group col-sm-6">
 
                     <div className="form-group">
-                        <img src={emptyImage} alt={"empty"} style={{ height: "254px" }} />
+                        <img src={emptyImage} alt={"empty"} style={{ height: "222px" }} />
 
                     </div>
                     {/*}
@@ -132,11 +132,12 @@ const InsertProduct = () => {
                         <label className="btn btn-secondary">
                             <input onChange={handleChange("item_image")}  type="file" name="item_image" accept="image/*" />
                         </label>
+                        <p style={{color: "red"}}> *Maximum Size - 1mb </p>
                     </div>
 
                     <div className="form-group">
                         <label className="text-muted">Quantity</label>
-                        <input onChange={handleChange('item_quantity')} type="text" className="form-control" value={item_quantity} />
+                        <input onChange={handleChange('item_quantity')} type="text" className="form-control" value={item_quantity} required/>
                     </div>
 
                     <div className="form-group">
@@ -152,12 +153,12 @@ const InsertProduct = () => {
                 <div className="form-group col-sm-6">
                     <div className="form-group">
                         <label className="text-muted">Product Code</label>
-                        <input onChange={handleChange('item_code')} type="text" className="form-control" value={item_code}/>
+                        <input onChange={handleChange('item_code')} type="text" className="form-control" value={item_code} required/>
                     </div>
 
                     <div className="form-group">
                         <label className="text-muted">Product Name</label>
-                        <input onChange={handleChange('item_name')} type="text" className="form-control" value={item_name} />
+                        <input onChange={handleChange('item_name')} type="text" className="form-control" value={item_name} required />
                     </div>
 
 
@@ -169,6 +170,7 @@ const InsertProduct = () => {
                             <option value="Beverages">Beverages</option>
                             <option value="Fruits">Fruits</option>
                             <option value="Vegetable">Vegetable</option>
+                            <option value="Grocery">Grocery</option>
 
                         </select>
                     </div>
@@ -176,7 +178,7 @@ const InsertProduct = () => {
                        
                     <div className="form-group ">
                         <label className="text-muted">Packing Type</label><br></br>
-                        <input type="radio" id="repack" name="item_type" value="Prepack" />
+                        <input type="radio" id="repack" name="item_type" value="Prepack" required/>
                         <label >&nbsp;Prepack</label>
                         <br></br>
                         <input type="radio" id="loosePack" name="item_type" value="Loose Pack" />
@@ -185,13 +187,13 @@ const InsertProduct = () => {
     
                     <div className="form-group">
                         <label className="text-muted">Weight</label>
-                        <input onChange={handleChange('item_weight')} type="text" className="form-control" value={item_weight}/>
+                        <input onChange={handleChange('item_weight')} type="text" className="form-control" value={item_weight} required/>
                     </div>
 
                    
                     <div className="form-group">
                         <label className="text-muted">Product Price</label>
-                        <input onChange={handleChange('item_price')} type="text" className="form-control" value={item_price}/>
+                        <input onChange={handleChange('item_price')} type="text" className="form-control" value={item_price} required/>
                     </div>
 
                 </div>

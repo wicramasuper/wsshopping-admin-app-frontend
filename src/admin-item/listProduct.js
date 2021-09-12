@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
 
 import Sidebar from '../core/sidebar';
-
+import { FiLink } from 'react-icons/fi';
 import { getProductsList, deleteProduct } from "../Auth/admin-item/listProduct";
 
+import "./style.css";
 
 const ManageProductList = () => {
     const [products, setProducts] = useState([]);
@@ -115,6 +116,8 @@ const ManageProductList = () => {
 
                 <div className="col-12">
                     <h2 className="text-center">Total Products : {products.length}</h2>
+                    <Link to="./insertCategory" className="btn btn-success"> New Category <FiLink /></Link>
+                    
                     <hr />
                     <ul className="list-group">
                         {products.filter((val) => {
@@ -130,14 +133,14 @@ const ManageProductList = () => {
                                     <strong className="p-2" >{p.item_code}</strong>
                                     <strong className="p-2 flex-fill" >{p.item_name}</strong>
                                     <Link to={`/getSingleProduct/${p._id}`}>
-                                        <span className="badge badge-success p-2 flex-fill" style={{ margin: "10px 0px 10px 20px" }}>View</span>
+                                        <span className="badge badge-success p-2 flex-fill" id="listBtn" >View</span>
                                     </Link>
                                     <Link to={`/updateProduct/${p._id}`}>
-                                        <span className="badge badge-warning p-2 flex-fill" style={{ margin: "10px 20px 10px 20px" }}>Update</span>
+                                        <span className="badge badge-warning p-2 flex-fill" id="listBtn">Update</span>
                                     </Link>
 
 
-                                    <span onClick={() => destroy(p._id)} className="badge badge-danger badge=pill p-2" style={{ cursor: "pointer" }}>Delete</span>
+                                    <span onClick={() => destroy(p._id)} className="badge badge-danger badge=pill p-2" style={{ cursor: "pointer" }} id="listBtn">Delete</span>
 
                                 </li>
                             ))}
