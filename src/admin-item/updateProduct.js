@@ -186,19 +186,27 @@ const UpdateProduct = ({match}) => {
                        
                     <div className="form-group ">
                         <label className="text-muted">Packing Type</label><br></br>
-                        <input type="radio" id="repack" name="item_type" value="Prepack" />
+                        <input onChange={handleChange('item_type')} type="radio" id="repack" name="item_type" value="Prepack" required/>
                         <label >&nbsp;Prepack</label>
                         <br></br>
-                        <input type="radio" id="loosePack" name="item_type" value="Loose Pack" />
+                        <input onChange={handleChange('item_type')} type="radio" id="loosePack" name="item_type" value="Loose Pack" />
                         <label>&nbsp;Loose Pack</label><br></br>
                     </div>
-    
-                    <div className="form-group">
-                        <label className="text-muted">Unit</label>
-                        <input onChange={handleChange('item_weight')} type="text" className="form-control" value={item_weight}/>
-                    </div>
 
-                   
+                   <div className="form-group">
+                        <label className="text-muted">Unit</label>
+                        
+                        <select onChange={handleChange('item_weight')} className="form-control" value={item_shipping} >
+                        <option value=".00">Plese select</option>
+                            <option value=".00">.00</option>
+                            <option value="Kg">Kilogram</option>
+                            <option value="g">gram</option>
+                            <option value="L">Liter</option>
+                            <option value="ml">Milliliter</option>
+                        </select>
+
+                    </div>
+                    
                     <div className="form-group">
                         <label className="text-muted">Product Price</label>
                         <input onChange={handleChange('item_price')} type="text" className="form-control" value={item_price}/>
