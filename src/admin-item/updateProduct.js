@@ -9,6 +9,7 @@ import { Redirect } from 'react-router-dom';
 
 
 import ShowImage from '../Auth/admin-item/ShowImageUpdate';
+import Swal from 'sweetalert2';
 
 const UpdateProduct = ({match}) => {
 
@@ -80,40 +81,57 @@ const UpdateProduct = ({match}) => {
         event.preventDefault();
 
         setValues({...values,error:'',loading:true});
+
         
-        var x = window.confirm("Are you sure you want to update this product ?");
-        if(x===true) {
-        // eslint-disable-next-line no-undef
-        updateProduct(match.params.productId,formData).then(data =>{
-            
-            if(data.error){
-                setValues({...values,error:data.error});
-            }else{
-                setValues({...values,
-                    item_code : '',
-                    item_name : '',
-                    ite_category : '',
-                    item_type : '',
-                    item_quantity : '',
-                    item_image : '',
-                    item_weight : '',
-                    item_price : '',
-                    item_shipping:'',
-                    item_description : '',
-                    
-                    loading:false,
-                error:false,
-                success:true,
-                redirectToHome:true,
-                    insertedProduct:data.item_name
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "Update",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Update it!'
+          })
+          .then((result) => {
+            if (result.isConfirmed) {
+                updateProduct(match.params.productId,formData).then(data =>{
+                if (data.error) {
+                    setValues({...values,error:data.error});
+                } else {
 
-                
-                });
+                    setValues({...values,
+                        item_code : '',
+                        item_name : '',
+                        ite_category : '',
+                        item_type : '',
+                        item_quantity : '',
+                        item_image : '',
+                        item_weight : '',
+                        item_price : '',
+                        item_shipping:'',
+                        item_description : '',
+                        
+                        loading:false,
+                    error:false,
+                    success:true,
+                    redirectToHome:true,
+                        insertedProduct:data.item_name
+                    });
+                    Swal.fire(
+                        'Updated',
+                        'Product Updated Successfully',
+                        'success'
+                      )
+                      
+                }
+            });
+    
+        } 
+          })
+        
+        
 
-            }
-
-
-        })};
+      
 
     };
 
@@ -196,7 +214,7 @@ const UpdateProduct = ({match}) => {
                    <div className="form-group">
                         <label className="text-muted">Unit</label>
                         
-                        <select onChange={handleChange('item_weight')} className="form-control" value={item_shipping} >
+                        <select onChange={handleChange('item_weight')} className="form-control" value={item_weight} >
                         <option value=".00">Plese select</option>
                             <option value=".00">.00</option>
                             <option value="Kg">Kilogram</option>
@@ -269,7 +287,7 @@ const showLoading = () =>
 
             
             {showError()}
-            {showSuccess()}
+            
             {showLoading()}
             {newPostForm()}
             {redirectUser()}

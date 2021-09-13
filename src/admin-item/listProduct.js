@@ -7,7 +7,7 @@ import { FaSearch } from 'react-icons/fa';
 import Sidebar from '../core/sidebar';
 import { FiLink } from 'react-icons/fi';
 import { getProductsList, deleteProduct } from "../Auth/admin-item/listProduct";
-
+import Swal from 'sweetalert2';
 import "./style.css";
 
 const ManageProductList = () => {
@@ -25,24 +25,37 @@ const ManageProductList = () => {
 
 
     const destroy = productId => {
-        var x = window.confirm("Are you sure you want to delete this post ? ");
-
-
-        if (x === true) {
+          
+        
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
             deleteProduct(productId).then(data => {
-                if (data.error) {
-                    console.log(data.error);
-                } else {
+            if (data.error) {
+                console.log(data.error);
+            } else {
+                Swal.fire(
+                    'Deleted',
+                    'Category Deleted Successfully',
+                    'success'
+                  )
+                  loadProducts();
+            }
+        });
 
-                    loadProducts();
-                }
-            });
-
-        } else {
-            loadProducts();
-        }
-
-    };
+    } else {
+        loadProducts();
+    }
+      })
+};
 
     useEffect(() => {
         loadProducts();
