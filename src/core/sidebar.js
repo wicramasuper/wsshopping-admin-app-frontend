@@ -58,7 +58,7 @@ const Sidebar =({children})=>(
       
     </li>
     <li class="">
-      <i class="uil-setting"></i><Link to="/"> Customer Report</Link>
+      <i class="uil-setting"></i><Link to="/admin/stats"> Customer Report</Link>
       
     </li>
     <li class="has-dropdown">
