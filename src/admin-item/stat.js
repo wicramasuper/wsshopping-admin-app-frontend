@@ -31,16 +31,24 @@ const ManageOrderstats = () => {
     }, []);
 
 
+    const cancel = [];
+    const complete = [];
+    const progress = [];
 
 
     return (
         <Sidebar>
-            <StatsCards></StatsCards>
-
+            
             <div className="row">
+                <div style={{display : "none"}}>
+            {orderStats.map((p, i) => (cancel.push(p.cancel)))}
+            {orderStats.map((p, i) => (complete.push(p.completed)))}
+            {orderStats.map((p, i) => (progress.push(p.progressing)))}
+            </div>
 
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center" style={{marginBottom:"-100px"}}>
                     <h1>Order Stats</h1>
+                    
                     <Chart
                         width={'1000px'}
                         height={'600px'}
@@ -48,11 +56,12 @@ const ManageOrderstats = () => {
                         loader={<div>Loading Chart</div>}
                         data={[
                             ['Status', 'Rate'],
-                            ['Completed', 700],
-                            ['Cancelled', 150],
-                            ['Progressing', 100],
+                            ['Completed', complete.reduce((a,b)=>a+b,0)],
+                            ['Cancelled', cancel.reduce((a,b)=>a+b,0)],
+                            ['Progressing',  progress.reduce((a,b)=>a+b,0)],
 
                         ]}
+                        
                         options={{
 
                             // Just add this option
@@ -63,7 +72,8 @@ const ManageOrderstats = () => {
                 </div>
             </div>
 
-            
+            <StatsCards></StatsCards>
+
 
         </Sidebar>
 

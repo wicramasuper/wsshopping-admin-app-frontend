@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from '../../core/sidebar';
 
 import { getstats } from "../../Auth/admin-item/stat";
+import { getstatsFilteredRed } from "../../Auth/admin-item/stat";
+
 //import { Link } from 'react-router-dom';
 //import Swal from 'sweetalert2';
 
@@ -14,12 +16,13 @@ let date = newDate.getDate();
 let month = newDate.getMonth() + 1;
 let year = newDate.getFullYear();
 
+const rate = 30;
 
-const Redstats = () => {
+const Greenstats = () => {
     const [orderStats, setStats] = useState([]);
 
     const loadStats = () => {
-        getstats().then(data => {
+        getstatsFilteredRed().then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
@@ -35,8 +38,6 @@ const Redstats = () => {
         loadStats();
     }, []);
 
-
-
     return (
         <Sidebar>
 
@@ -44,7 +45,9 @@ const Redstats = () => {
 
 
 
-            <Pdf targetRef={ref} filename={date+"_"+month+"_"+year+"_"+"Red"}>
+
+
+            <Pdf targetRef={ref} filename={date + "_" + month + "_" + year + "_" + "Red"}>
                 {({ toPdf }) => <button onClick={toPdf}>Download as PDF</button>}
             </Pdf>
 
@@ -55,7 +58,10 @@ const Redstats = () => {
 
 
                 <div className="Post" ref={ref}>
-                    <table class="table" >
+
+
+
+                    <table class="table">
                         <thead>
                             <tr style={{ color: 'red' }}>
                                 <th>Customer</th>
@@ -67,29 +73,30 @@ const Redstats = () => {
                             <tbody>
                                 <tr>
                                     <td>
-                                        {((p.cancel / (p.completed + p.cancel)) * 100).toFixed(2) > 30 &&
-                                            <h4>
-                                                {p.username}
+
+                                        <h4>
+                                            {p.userName}
 
 
-                                            </h4>
-                                        }</td>
+                                        </h4>
+                                    </td>
                                     <td>
-                                        {((p.cancel / (p.completed + p.cancel)) * 100).toFixed(2) > 30 &&
-                                            <h4>
-                                                {((p.cancel / (p.completed + p.cancel)) * 100).toFixed(2)}%
+                                        <h4>
+
+                                            {(p.cancel * 100).toFixed(2)}
 
 
-                                            </h4>
-                                        }</td>
+                                        </h4>
+                                    </td>
                                     <td>
-                                        {((p.cancel / (p.completed + p.cancel)) * 100).toFixed(2) > 30 &&
-                                            <h4>
-                                                {((p.completed / (p.completed + p.cancel)) * 100).toFixed(2)}%
+                                        <h4>
+
+                                            {(p.complete * 100).toFixed(2)}
 
 
-                                            </h4>
-                                        }</td>
+                                        </h4>
+
+                                    </td>
 
 
 
@@ -104,9 +111,6 @@ const Redstats = () => {
 
             </div>
 
-
-
-
         </Sidebar>
     )
 
@@ -114,6 +118,4 @@ const Redstats = () => {
 
 }
 
-
-
-export default Redstats;
+export default Greenstats;
