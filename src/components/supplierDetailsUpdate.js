@@ -25,7 +25,6 @@ import FormLabel from '@material-ui/core/FormLabel';
 function Copyright() {
     return (
       <Typography variant="body2" color="textSecondary" align="center">
-        {'Copyright © '}
         <Link color="inherit" href="https://material-ui.com/">
           Wickrama Super Online Shopping Store
         </Link>{' '}
@@ -96,20 +95,37 @@ export default function AddSupplier() {
             setLocation(location.location);
             setBranchWillingToSupply(branchWillingToSupply.branchWillingToSupply);
             setDate(date.date);
-            console.log(supplierName)
+    //         // setsupplierName(result[0].supplierName);
+    //         // setSupplierEmail(result[0].supplierEmail);
+    //         // setPhoneNumber(result[0].phoneNumber);
+    //         // setProductType(result[0].productType);
+    //         // setSupplierType(result[0].supplierType);
+    //         // setSupplierItemType(result[0].supplierItemType);
+    //         // setLocation(result[0].location);
+    //         // setBranchWillingToSupply(result[0].branchWillingToSupply);
+    //         // setDate(result[0].date);
+    //         console.log(supplierName)
         }
         getData()
     }, [])
 
+
+    const classes = useStyles();
     const [value, setValue] = React.useState('internalSupplier');
   
     const handleChange = (event) => {
       setValue(event.target.value);
     }
+//  const [supplierold,setsupplierold]=useState([]);
 
-    
-
-  const classes = useStyles();
+//     useEffect(()=>{
+//     fetch(`http://localhost:9000/supplier/${id}`)
+//     .then((res) => res.json())
+//     .then((data) => {
+//       setsupplierold(data);
+//       console.log(data);
+//     });
+// }, []);
 
   //code goes here...
 
@@ -131,7 +147,7 @@ export default function AddSupplier() {
       e.preventDefault();
       console.log(supplier);
       axios.put(`http://localhost:9000/supplier/updateSup/${id}`,supplier).then(res => {
-          alert('Supplier Successfully added!');
+          alert('Supplier Successfully Updated!');
           window.location="/supplierDetails"
       }).catch(error => {
           console.log(error.message);
@@ -156,10 +172,11 @@ export default function AddSupplier() {
                 autoComplete="SupplierID"
                 name="supplierName"
                 variant="outlined"
+                // value={supplierold.supplierName}
                 required
                 fullWidth
                 id="supplierName"
-                label="Supplier Name"
+                // label="Supplier Name"
                 autoFocus
                 onChange={(e) => setSupplier({...supplier,supplierName: e.target.value})}
                 // onChange={(e) => e.target.checked ? setContract({...supplier,supplierName: e.target.value}):(null)}
@@ -170,11 +187,12 @@ export default function AddSupplier() {
                 autoComplete="SupplierEmail"
                 name="supplierEmail"
                 variant="outlined"
+                // value={supplierold.supplierEmail}
                 required
                 fullWidth
                 id="supplierEmail"
                 type="email"
-                label="supplier Email"
+                // label="supplier Email"
                 autoFocus
                 onChange={(e) => setSupplier({...supplier,supplierEmail: e.target.value})}
               />
@@ -187,7 +205,8 @@ export default function AddSupplier() {
                 required
                 fullWidth
                 id="phoneNumber"
-                label="phoneNumber"
+                // value={supplierold.phoneNumber}
+                // label="phoneNumber"
                 name="phoneNumber"
                 autoComplete="PhoneNumber"
                 autoFocus
@@ -200,20 +219,21 @@ export default function AddSupplier() {
                 required
                 fullWidth
                 id="productType"
-                label="Product Type"
+                // label="Product Type"
                 name="Product Type"
                 autoComplete="Product Type"
                 autoFocus
                 onChange={(e) => setSupplier({...supplier,productType: e.target.value})}
+               
               />
                </Grid>
             <Grid item xs={12} sm={6}>
                  <FormControl component="fieldset">
                 <FormLabel component="legend">Supplier Type</FormLabel>
-                <RadioGroup aria-label="supplierType" name="supplierType" value={value} onChange={handleChange}>
-                    <FormControlLabel value="internalSupplier" control={<Radio />} label="Internal Supplier" onChange={(e) => setSupplier({...supplier,supplierType: e.target.value})}/>
-                    <FormControlLabel value="externalSupplier" control={<Radio />} label="External Supplier" onChange={(e) => setSupplier({...supplier,supplierType: e.target.value})} />
-                    <FormControlLabel value="wickrama Supplier" control={<Radio />} label="Wickrama Supplier" onChange={(e) => setSupplier({...supplier,supplierType: e.target.value})}/>
+                <RadioGroup  name="supplierType"  onChange={handleChange}>
+                    <FormControlLabel value="internalSupplier"  control={<Radio />} label="Internal Supplier" onChange={(e) => setSupplier({...supplier,supplierType: e.target.value})}/>
+                    <FormControlLabel value="externalSupplier"  control={<Radio />} label="External Supplier" onChange={(e) => setSupplier({...supplier,supplierType: e.target.value})} />
+                    <FormControlLabel value="wickrama Supplier"  control={<Radio />} label="Wickrama Supplier" onChange={(e) => setSupplier({...supplier,supplierType: e.target.value})}/>
                     {/* <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" /> */}
                 </RadioGroup>
                 
@@ -222,8 +242,9 @@ export default function AddSupplier() {
                 <Grid item xs={12} sm={6}>
                       <TextField
                   id="date"
-                  label="Date"
+                  // label="Date"
                   type="Date"
+                  // value={supplierold.date}
                   defaultValue="2021-09-14"
                   className={classes.textField}
                   InputLabelProps={{
@@ -237,10 +258,11 @@ export default function AddSupplier() {
                 autoComplete="supplierItemType"
                 name="supplierItemType"
                 variant="outlined"
+                // value={supplierold.supplierItemType}
                 required
-                ful lWidth
+                full Width
                 id="supplierItemType"
-                label="Supplier Item Type"
+                // label="Supplier Item Type"
                 autoFocus
                 onChange={(e) => setSupplier({...supplier,supplierItemType: e.target.value})}
               />
@@ -252,7 +274,8 @@ export default function AddSupplier() {
                 required
                 fullWidth
                 id="location"
-                label="Location"
+                // value={supplierold.location}
+                // label="Location"
                 name="location"
                 autoComplete="location"
                 onChange={(e) => setSupplier({...supplier,location: e.target.value})}
@@ -263,7 +286,8 @@ export default function AddSupplier() {
                 variant="outlined"
                 fullWidth
                 name="branchWillingToSupply"
-                label="branchWillingToSupply"
+                // value={supplierold.branchWillingToSupply}
+                // label="branchWillingToSupply"
                 type="text"
                 id="branchWillingToSupply"
                 onChange={(e) => setSupplier({...supplier,branchWillingToSupply: e.target.value})}

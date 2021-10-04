@@ -68,24 +68,21 @@ function Copyright() {
 
 export default function AddPurchaseOrder() {
 
-  const [supplierName, setsupplierName] = useState("");
+  const [itemName, setItemName] = useState("");
     const { id } = useParams();
 
     const [supplierEmail, setSupplierEmail] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [productType, setProductType] = useState("");
-    const [supplierType, setSupplierType] = useState("");
-    const [supplierItemType, setSupplierItemType] = useState("");
-    const [location, setLocation] = useState("");
-    const [branchWillingToSupply, setBranchWillingToSupply] = useState("");
+    const [branch, setBranch] = useState("");
+    const [supplierName, setSupplierName] = useState("");
     const [date, setDate] = useState("");
+    const [priority, setPriority] = useState("");
    
 
-    const [value, setValue] = React.useState('internalSupplier');
+   // const [value, setValue] = React.useState('internalSupplier');
   
-    const handleChange = (event) => {
-      setValue(event.target.value);
-    }
+    // const handleChange = (event) => {
+    //   setValue(event.target.value);
+    // }
 
     
 
@@ -94,24 +91,20 @@ export default function AddPurchaseOrder() {
   //code goes here...
 
 
-  const [supplier,setSupplier] = useState({
+  const [poroutes,setPOroutes] = useState({
+    itemName: "",
+    branch: "",
     supplierName: "",
-    supplierEmail: "",
-    phoneNumber: "",
-    productType:"",
-    supplierType: "",
-    supplierItemType:"",
-    location:"",
-    branchWillingToSupply:"",
     date: new Date(),
+    priority: "",
     // contracts: [{}]
   })
 
   const handleSubmit = (e) => {
       e.preventDefault();
-      console.log(supplier);
-      axios.post('http://localhost:9000/supplier/add',supplier).then(res => {
-          alert('Supplier Successfully added!');
+      console.log(poroutes);
+      axios.post('http://localhost:9000/poroutes/add',poroutes).then(res => {
+          alert('Purchase Order Successfully added!');
       }).catch(error => {
           console.log(error.message);
           alert(error.message);
@@ -137,24 +130,24 @@ export default function AddPurchaseOrder() {
                 variant="outlined"
                 required
                 fullWidth
-                id="supplierName"
-                label="Supplier Name"
+                id="itemName"
+                label="Item Name"
                 autoFocus
-                onChange={(e) => setPurchaseOrder({...supplier,supplierName: e.target.value})}
+                onChange={(e) => setPOroutes({...poroutes,itemName: e.target.value})}
                 // onChange={(e) => e.target.checked ? setContract({...supplier,supplierName: e.target.value}):(null)}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
              <TextField
-                autoComplete="SupplierEmail"
-                name="supplierEmail"
+                autoComplete="Branch"
+                name="branch"
                 variant="outlined"
                 required
                 fullWidth
-                id="supplierEmail"
-                label="supplier Email"
+                id="branch"
+                label="branch"
                 autoFocus
-                onChange={(e) => setSupplier({...supplier,supplierEmail: e.target.value})}
+                onChange={(e) => setPOroutes({...poroutes,branch: e.target.value})}
               />
               </Grid>
 
@@ -164,40 +157,15 @@ export default function AddPurchaseOrder() {
                 variant="outlined"
                 required
                 fullWidth
-                id="phoneNumber"
-                label="phoneNumber"
-                name="phoneNumber"
-                autoComplete="PhoneNumber"
+                id="supplierName"
+                label="Supplier Name"
+                name="supplierName"
+                autoComplete="SupplierName"
                 autoFocus
-                onChange={(e) => setSupplier({...supplier,phoneNumber: e.target.value})}
+                onChange={(e) => setPOroutes({...poroutes,supplierName: e.target.value})}
               />
                </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                id="productType"
-                label="Product Type"
-                name="Product Type"
-                autoComplete="Product Type"
-                autoFocus
-                onChange={(e) => setSupplier({...supplier,productType: e.target.value})}
-              />
-               </Grid>
-            <Grid item xs={12} sm={6}>
-                 <FormControl component="fieldset">
-                <FormLabel component="legend">Supplier Type</FormLabel>
-                <RadioGroup aria-label="supplierType" name="supplierType" value={value} onChange={handleChange}>
-                    <FormControlLabel value="internalSupplier" control={<Radio />} label="Internal Supplier" onChange={(e) => setSupplier({...supplier,supplierType: e.target.value})}/>
-                    <FormControlLabel value="externalSupplier" control={<Radio />} label="External Supplier" onChange={(e) => setSupplier({...supplier,supplierType: e.target.value})} />
-                    <FormControlLabel value="wickrama Supplier" control={<Radio />} label="Wickrama Supplier" onChange={(e) => setSupplier({...supplier,supplierType: e.target.value})}/>
-                    {/* <FormControlLabel value="disabled" disabled control={<Radio />} label="(Disabled option)" /> */}
-                </RadioGroup>
-                
-                </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={6}>
+               <Grid item xs={12} sm={6}>
                       <TextField
                   id="date"
                   label="Date"
@@ -207,24 +175,25 @@ export default function AddPurchaseOrder() {
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  onChange={(e) => setSupplier({...supplier,date: e.target.value})}
+                  onChange={(e) => setPOroutes({...poroutes,date: e.target.value})}
                 />
             </Grid>
-            <Grid item xs={12}>
+        
+            <Grid item xs={12} sm={6}>
                 <TextField
-                autoComplete="supplierItemType"
-                name="supplierItemType"
+                autoComplete="priority"
+                name="Priority"
                 variant="outlined"
                 required
                 ful lWidth
-                id="supplierItemType"
-                label="Supplier Item Type"
+                id="priority"
+                label="Priority Type"
                 autoFocus
-                onChange={(e) => setSupplier({...supplier,supplierItemType: e.target.value})}
+                onChange={(e) => setPOroutes({...poroutes,priority: e.target.value})}
               />
                
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <TextField
                 variant="outlined"
                 required
@@ -246,7 +215,7 @@ export default function AddPurchaseOrder() {
                 id="branchWillingToSupply"
                 onChange={(e) => setSupplier({...supplier,branchWillingToSupply: e.target.value})}
               />
-            </Grid>
+            </Grid> */}
             {/* <Grid item xs={12}>
               <TextField
                 variant="outlined"
@@ -274,16 +243,7 @@ export default function AddPurchaseOrder() {
             color="primary"
             className={classes.submit}
           >
-           ADD SUPPLIER
-          </Button>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-           RESET ALL
+           Generate PO
           </Button>
           <Grid container justifyContent="flex-end">
             

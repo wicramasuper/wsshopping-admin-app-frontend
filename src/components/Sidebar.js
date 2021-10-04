@@ -205,6 +205,7 @@ return(
     <i class="dropdown icon"></i>
     <div class="menu">
       <div class="item"><Link to="/generatePO" className="nav-link">PO Management</Link></div>
+      {/* <div class="item"><Link to="/POFinalForm" className="nav-link">PO Details</Link></div> */}
       <div class="item"></div>
     </div>
   </div>
@@ -216,9 +217,8 @@ return(
     Inventory Management
     <i class="dropdown icon"></i>
     <div class="menu">
-      <div class="item"><Link to="/productadd" className="nav-link">Add Product</Link></div>
-      <div class="item">Choice 2</div>
-      <div class="item">Choice 3</div>
+      <div class="item"><Link to="/branchAdd" className="nav-link">Create Branch</Link></div>
+      <div class="item"><Link to="/branchDetails" className="nav-link">Branch Details</Link></div>
     </div>
   </div>
 </div>

@@ -23,6 +23,8 @@ import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 import Paper from '@material-ui/core/Paper';
 import { deepOrange, deepPurple } from '@material-ui/core/colors';
+import { useParams } from "react-router";
+import { useEffect } from "react"
 
 
 function Copyright() {
@@ -118,19 +120,15 @@ export default function AddContract() {
 
     useEffect(() => {
       async function getData(){
-            const result = await (await axios.get(`http://localhost:9000/supplier/${id}`)).data.data
+            const result = await (await axios.get(`http://localhost:9000/contract/${id}`)).data.data
             console.log(result)
             //console.log(result[0].supplierName)
-            setsupplierName(supplierName.supplierName);
-            setSupplierEmail(supplierEmail.supplierEmail);
-            setPhoneNumber(phoneNumber.phoneNumber);
-            setProductType(productType.productType);
-            setSupplierType(supplierType.supplierType);
-            setSupplierItemType(supplierItemType.supplierItemType);
-            setLocation(location.location);
+            setsupplierName(SupplierName.SupplierName);
+            setagreementDate(AgreementDate.AgreementDate);
             setBranchWillingToSupply(branchWillingToSupply.branchWillingToSupply);
-            setDate(date.date);
-            console.log(supplierName)
+            setContractPeriod(contractPeriod.contractPeriod);
+            setdescription(Description.Description);
+            // console.log(supplierName)
         }
         getData()
     }, [])
@@ -143,6 +141,17 @@ export default function AddContract() {
     setValue(event.target.value);
   };
 
+//   const [contractold,setcontractold]=useState([]);
+
+//   useEffect(()=>{
+//   fetch(`http://localhost:9000/supplier/${id}`)
+//   .then((res) => res.json())
+//   .then((data) => {
+//     setsupplierold(data);
+//     console.log(data);
+//   });
+// }, []);
+  
 
   //code goes here...
 
@@ -159,10 +168,10 @@ export default function AddContract() {
       e.preventDefault();
       console.log(contract);
       axios.put(`http://localhost:9000/contract/updateCont/${id}`,contract).then(res => {
-          alert('Contract Created Successfully!');
+          alert('Contract Updated Successfully!');
           window.location="/contractDetails"
       }).catch(error => {
-          console.log(error.message);
+          console.log(error.message);  
           alert(error.message);
       })
   }
@@ -201,6 +210,7 @@ export default function AddContract() {
              <Grid item xs={12} sm={6}>
              <form className={classes.container} noValidate>
                 <TextField
+                variant="outlined"
                   id="AgreementDate"
                   label="AgreementDate"
                   type="date"
@@ -273,6 +283,7 @@ export default function AddContract() {
                <Grid item xs={12} >
              <form className={classes.container} noValidate>
                 <TextField
+                variant="outlined"
                   id="contractPeriod"
                   label="Contract End Date"
                   type="date"
@@ -291,42 +302,8 @@ export default function AddContract() {
                <br/>
                <br/>
                <br/>
-        
-        <label htmlFor="contained-button-file">
-         <Button variant="contained" color="primary" component="span">
-         <input
-         accept="image/*"
-         className={classes.input}
-         id="contained-button-file"
-         multiple
-         type="file"
-       />
-           {/* Upload */}
-         </Button>
-       </label>
+      
        </Grid>
-       
-          
-            {/* <div className={classes.root}>
-       <input
-         accept="image/*"
-         className={classes.input}
-         id="contained-button-file"
-         multiple
-         type="file"
-       />
-       <label htmlFor="contained-button-file">
-         <Button variant="contained" color="primary" component="span">
-           Upload
-         </Button>
-       </label>
-       <input accept="image/*" className={classes.input} id="icon-button-file" type="file" />
-       <label htmlFor="icon-button-file">
-         <IconButton color="primary" aria-label="upload picture" component="span">
-           <PhotoCamera />
-         </IconButton>
-       </label>
-     </div> */}
         <Grid item xs={12}>
                <FormControlLabel
                  control={<Checkbox value="allowExtraEmails" color="primary" />}
@@ -341,7 +318,7 @@ export default function AddContract() {
              color="primary"
              className={classes.submit}
            >
-            APPROVE
+            UPDATE
            </Button>
            <Grid container justifyContent="flex-end">
           

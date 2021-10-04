@@ -27,7 +27,7 @@
 
 body {
 	font-family: 'Inter', sans-serif;
-	/*background-color: var(--dk-darker-bg);*/
+	background-color: black;
 	font-size: .925rem;
 }
 

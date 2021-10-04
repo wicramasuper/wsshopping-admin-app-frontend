@@ -32,77 +32,42 @@ import img1 from '../components/signature.jpg'
 
 
 const columns = [
-  { id: 'supplierName',
-    label: 'Supplier Name',
+  { id: 'branchName',
+    label: 'Branch Name',
     minWidth: 100,
     align: 'center',
     main: '#f44336',
   },
   {
-    id: 'supplierEmail',
-    label: 'Supplier Email',
+    id: 'registereddatel',
+    label: 'Register Date',
     minWidth: 170,
     align: 'center',
     // format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'phoneNumber',
-    label: 'Phone Number',
+    id: 'branchTell',
+    label: 'Branch Tell NO',
     minWidth: 170,
     align: 'center',
     // format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'productType',
-    label: 'Product Type',
+    id: 'description',
+    label: 'Description',
     minWidth: 170,
     align: 'center',
     // format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'supplierType',
-    label: 'Supplier Type',
-    minWidth: 170,
-    align: 'center',
-    // format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'supplierItemType',
-    label: 'Supplier Item Type',
-    minWidth: 170,
-    align: 'center',
-    // format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'location',
-    label: 'Location',
-    minWidth: 170,
-    align: 'center',
-    // format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'branchWillingToSupply',
-    label: 'Branch Willing To Supply',
-    minWidth: 170,
-    align: 'center',
-    // format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'date',
-    label: 'Date',
-    minWidth: 170,
-    align: 'center',
-    // format: (value) => value.toFixed(2),
   },
 ];
 
-function SupplierDetailsTable(name, code, population, size) {
+function BranchDetailsTable(name, code, population, size) {
   const density = population / size;
   return { name, code, population, size, density };
 }
 
 const rows = [
-  SupplierDetailsTable('', '', '','' ),
+  BranchDetailsTable('', '', '','' ),
   
 ];
 
@@ -136,22 +101,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SupplierDetails() {
+export default function BranchDetails() {
 
-  const [supplier,setSupplier]=useState([]);
+  const [branch,setBranch]=useState([]);
   const [searchTerm,setSearchTerm]=useState('');
   const [filtered,setfiltered]=useState([]);
-  const [supplierName, setsupplierName] =useState([]);
+  const [branchName, setbranchName] =useState([]);
 
-
-  useEffect(()=>{
-    fetch('http://localhost:9000/supplier/').then(
-      res=>res.json()
-    ).then((data)=>{
-      setSupplier(data);
-    })
-  },[]);
-
+  //This useEffect function used to get all contract's data
+  useEffect(() => {
+    fetch("http://localhost:9000/branch/")
+      .then((res) => res.json())
+      .then((data) => {
+        setBranch(data);
+      });
+  }, []);
 
   async function delet(id) {
     SoloAlert.confirm({
@@ -163,7 +127,7 @@ export default function SupplierDetails() {
         onOk: async function () {
 
             try {
-                const result = await (await axios.delete(`http://localhost:9000/supplier/deleteSup/${id}`)).status; console.log(result)
+                const result = await (await axios.delete(`http://localhost:9000/branch/deleteBranch/${id}`)).status; console.log(result)
 
                 if (result === 200) {
                     SoloAlert.alert({
@@ -173,7 +137,7 @@ export default function SupplierDetails() {
                         theme: "dark",
                         useTransparency: true,
                         onOk: function () {
-                            window.location = "/supplierDetails"
+                            window.location = "/branchDetails"
                         },
 
                     });
@@ -233,52 +197,47 @@ export default function SupplierDetails() {
       },
     },
   });
-  
+
   // genarate pdf
 
-  const generatePDF = tickets => {
+const generatePDF = tickets => {
 
-    const doc = new jspdf();
-    const tableColumn = ["Supplier ID", "Supplier Name", "Supplier Email", "Phone Number", "Product Type", "Supplier Type", "Supplier Item Type","Location","branchWillingToSupply"," date"];
-    const tableRows = [];
-    const date = Date().split(" ");
-    const dateStr = date[1] + "-" + date[2] + "-" + date[3];
+  const doc = new jspdf();
+  const tableColumn = ["Branch ID", "Branch Name", "Registered Date", "Branch Tell", "Description"];
+  const tableRows = [];
+  const date = Date().split(" ");
+  const dateStr = date[1] + "-" + date[2] + "-" + date[3];
 
-    tickets.map(ticket => {
-        const ticketData = [
-            ticket._id,
-            ticket.supplierName,
-            ticket.supplierEmail,
-            ticket.phoneNumber,
-            ticket.productType,
-            ticket.supplierType,
-            ticket.supplierItemType,
-            ticket.location,
-            ticket.branchWillingToSupply,
-            ticket. date,
-        ];
-        tableRows.push(ticketData);
-    })
-    doc.text("WICKRAMA SUPER PLC", 70, 8).setFontSize(13);
-    doc.text("Supplier Detail Report", 14, 16).setFontSize(13);
-    doc.text(`Report Genarated Date - ${dateStr}`, 14, 23);
-    //right down width height
-    doc.addImage(img, 'JPEG', 170, 8, 25, 25);
-    doc.autoTable(tableColumn, tableRows, { styles: { fontSize: 8, }, startY:35});
-    doc.addImage(img1, 'JPEG', 135, 150,70, 40);
-    doc.save("Supplier Details Report.pdf");
+  tickets.map(ticket => {
+      const ticketData = [
+          ticket._id,
+          ticket.branchName,
+          ticket.registereddate,
+          ticket.branchTell,
+          ticket.description,
+      ];
+      tableRows.push(ticketData);
+  })
+  doc.text("WICKRAMA SUPER PLC", 70, 8).setFontSize(13);
+  doc.text("Branch Details Report", 14, 16).setFontSize(13);
+  doc.text(`Report Genarated Date - ${dateStr}`, 14, 23);
+  //right down width height
+  doc.addImage(img, 'JPEG', 170, 8, 25, 25);
+  doc.autoTable(tableColumn, tableRows, { styles: { fontSize: 8, }, startY:35});
+  doc.addImage(img1, 'JPEG', 120, 140,70, 40);
+  doc.save("Branch Details Report.pdf");
 };
 
   return (
     <div className={classes.root2}>
     <Typography variant="h4" gutterBottom>
-        Supplier Details
+        Branch Details
         {/* <Avatar className={classes.green}>
         <AssignmentIcon />
       </Avatar> */}
       </Typography>
       <div class="buttonn">
-       <button type="button" class="btn btn-secondary btn-sm"  onClick={() => generatePDF(supplier)} >GenerateReport</button> <br></br>
+       <button type="button" class="btn btn-secondary btn-sm" onClick={() => generatePDF(branch)} >GenerateReport</button> <br></br>
             </div>
       <MDBCol md="6">
       <input class="form-control" id="myInput" type="text" placeholder="Search.." onChange={e => { setSearchTerm(e.target.value) }} />
@@ -302,60 +261,32 @@ export default function SupplierDetails() {
           </TableHead>
           <TableBody>
 
-          {supplier.filter((value)=>{
+          {branch.filter((value)=>{
   if(searchTerm===""){
     return value;
-  }else if(value.supplierName.toLowerCase().includes(searchTerm.toLowerCase())){
+  }else if(value.branchName.toLowerCase().includes(searchTerm.toLowerCase())){
     return value;
   }
 })
-.map((supp,i)=>(
+.map((bran,i)=>(
 
             // {supplier !=0 ? supplier.map((supp)=>{
             //   return (
-                <TableRow key={supp._id}>
-                  <TableCell>{supp.supplierName}</TableCell>
-                  <TableCell>{supp.supplierEmail}</TableCell>
-                  <TableCell>{supp.phoneNumber}</TableCell>
-                  <TableCell>{supp.productType}</TableCell>
-                  <TableCell>{supp.supplierType}</TableCell>
-                  <TableCell>{supp.supplierItemType}</TableCell>
-                  <TableCell>{supp.location}</TableCell>
-                  <TableCell>{supp.branchWillingToSupply}</TableCell>
-                  <TableCell>{supp.date}</TableCell>
-                  <TableCell><Link to={"/updateSup/"+supp._id} type="submit" class="btn btn-primary" ><i class="fa fa-trash"></i>  UPDATE</Link></TableCell>
-                  <TableCell><button type="submit" class="btn btn-danger" onClick={(e) => { delet(supp._id) }}><i class="fa fa-trash"></i>  DELETE</button></TableCell>
+                <TableRow key={bran._id}>
+                  <TableCell>{bran.branchName}</TableCell>
+                  <TableCell>{bran.registereddate}</TableCell>
+                  <TableCell>{bran.branchTell}</TableCell>
+                  <TableCell>{bran.description}</TableCell>
+                  <TableCell><Link to={"/updateBranch/"+bran._id} type="submit" class="btn btn-primary" ><i class="fa fa-trash"></i>  UPDATE</Link></TableCell>
+                  <TableCell><button type="submit" class="btn btn-danger" onClick={(e) => { delet(bran._id) }}><i class="fa fa-trash"></i>  DELETE</button></TableCell>
                 </TableRow>
                
               
             ))}
             
-            {/* {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-              return (
-                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                  {columns.map((column) => {
-                    const value = row[column.id];
-                    return (
-                      <TableCell key={column.id} align={column.align}>
-                        {column.format && typeof value === 'number' ? column.format(value) : value}
-                      </TableCell>
-                    );
-                  })}
-                </TableRow>
-              );
-            })} */}
           </TableBody>
         </Table>
       </TableContainer>
-      <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
-        component="div"
-        count={rows.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      />
     </Paper>
     </div>
   );

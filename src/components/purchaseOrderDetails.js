@@ -8,8 +8,8 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import DeleteIcon from '@material-ui/icons/Delete';
-import SaveIcon from '@material-ui/icons/Save';
+
+
 import { green, pink } from '@material-ui/core/colors';
 import Avatar from '@material-ui/core/Avatar';
 import FolderIcon from '@material-ui/icons/Folder';
@@ -25,84 +25,52 @@ import SoloAlert from 'soloalert'
 import axios from 'axios';
 import { MDBCol } from "mdbreact";
 
-import jspdf from 'jspdf'
-import "jspdf-autotable"
-import img from '../components/wsLogo.jpg'
-import img1 from '../components/signature.jpg'
-
 
 const columns = [
-  { id: 'supplierName',
-    label: 'Supplier Name',
+  { id: 'itemName',
+    label: 'Item Name',
     minWidth: 100,
     align: 'center',
     main: '#f44336',
   },
   {
-    id: 'supplierEmail',
-    label: 'Supplier Email',
+    id: 'branch',
+    label: 'branch',
     minWidth: 170,
     align: 'center',
     // format: (value) => value.toLocaleString('en-US'),
   },
   {
-    id: 'phoneNumber',
-    label: 'Phone Number',
+    id: 'supplierName',
+    label: 'Supplier Name',
     minWidth: 170,
     align: 'center',
     // format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'productType',
-    label: 'Product Type',
-    minWidth: 170,
-    align: 'center',
-    // format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'supplierType',
-    label: 'Supplier Type',
-    minWidth: 170,
-    align: 'center',
-    // format: (value) => value.toLocaleString('en-US'),
-  },
-  {
-    id: 'supplierItemType',
-    label: 'Supplier Item Type',
-    minWidth: 170,
-    align: 'center',
-    // format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'location',
-    label: 'Location',
-    minWidth: 170,
-    align: 'center',
-    // format: (value) => value.toFixed(2),
-  },
-  {
-    id: 'branchWillingToSupply',
-    label: 'Branch Willing To Supply',
-    minWidth: 170,
-    align: 'center',
-    // format: (value) => value.toFixed(2),
   },
   {
     id: 'date',
     label: 'Date',
     minWidth: 170,
     align: 'center',
-    // format: (value) => value.toFixed(2),
+    // format: (value) => value.toLocaleString('en-US'),
   },
+  {
+    id: 'priority',
+    label: 'Supplier Type',
+    minWidth: 170,
+    align: 'center',
+    // format: (value) => value.toLocaleString('en-US'),
+  },
+  
 ];
 
-function SupplierDetailsTable(name, code, population, size) {
+function PODetailsTable(name, code, population, size) {
   const density = population / size;
   return { name, code, population, size, density };
 }
 
 const rows = [
-  SupplierDetailsTable('', '', '','' ),
+  PODetailsTable('', '', '','' ),
   
 ];
 
@@ -136,19 +104,19 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SupplierDetails() {
+export default function PODetails() {
 
-  const [supplier,setSupplier]=useState([]);
+  const [purchaseOrder,setPurchaseOrder]=useState([]);
   const [searchTerm,setSearchTerm]=useState('');
   const [filtered,setfiltered]=useState([]);
-  const [supplierName, setsupplierName] =useState([]);
+  const [itemName, setItemName] =useState([]);
 
 
   useEffect(()=>{
-    fetch('http://localhost:9000/supplier/').then(
+    fetch('http://localhost:9000/poroutes/').then(
       res=>res.json()
     ).then((data)=>{
-      setSupplier(data);
+      setPurchaseOrder(data);
     })
   },[]);
 
@@ -163,7 +131,7 @@ export default function SupplierDetails() {
         onOk: async function () {
 
             try {
-                const result = await (await axios.delete(`http://localhost:9000/supplier/deleteSup/${id}`)).status; console.log(result)
+                const result = await (await axios.delete(`http://localhost:9000/poroutes/deletePO/${id}`)).status; console.log(result)
 
                 if (result === 200) {
                     SoloAlert.alert({
@@ -173,7 +141,7 @@ export default function SupplierDetails() {
                         theme: "dark",
                         useTransparency: true,
                         onOk: function () {
-                            window.location = "/supplierDetails"
+                            window.location = "/poDetails"
                         },
 
                     });
@@ -233,53 +201,15 @@ export default function SupplierDetails() {
       },
     },
   });
-  
-  // genarate pdf
-
-  const generatePDF = tickets => {
-
-    const doc = new jspdf();
-    const tableColumn = ["Supplier ID", "Supplier Name", "Supplier Email", "Phone Number", "Product Type", "Supplier Type", "Supplier Item Type","Location","branchWillingToSupply"," date"];
-    const tableRows = [];
-    const date = Date().split(" ");
-    const dateStr = date[1] + "-" + date[2] + "-" + date[3];
-
-    tickets.map(ticket => {
-        const ticketData = [
-            ticket._id,
-            ticket.supplierName,
-            ticket.supplierEmail,
-            ticket.phoneNumber,
-            ticket.productType,
-            ticket.supplierType,
-            ticket.supplierItemType,
-            ticket.location,
-            ticket.branchWillingToSupply,
-            ticket. date,
-        ];
-        tableRows.push(ticketData);
-    })
-    doc.text("WICKRAMA SUPER PLC", 70, 8).setFontSize(13);
-    doc.text("Supplier Detail Report", 14, 16).setFontSize(13);
-    doc.text(`Report Genarated Date - ${dateStr}`, 14, 23);
-    //right down width height
-    doc.addImage(img, 'JPEG', 170, 8, 25, 25);
-    doc.autoTable(tableColumn, tableRows, { styles: { fontSize: 8, }, startY:35});
-    doc.addImage(img1, 'JPEG', 135, 150,70, 40);
-    doc.save("Supplier Details Report.pdf");
-};
 
   return (
     <div className={classes.root2}>
     <Typography variant="h4" gutterBottom>
-        Supplier Details
+        Purchase Order Details
         {/* <Avatar className={classes.green}>
         <AssignmentIcon />
       </Avatar> */}
       </Typography>
-      <div class="buttonn">
-       <button type="button" class="btn btn-secondary btn-sm"  onClick={() => generatePDF(supplier)} >GenerateReport</button> <br></br>
-            </div>
       <MDBCol md="6">
       <input class="form-control" id="myInput" type="text" placeholder="Search.." onChange={e => { setSearchTerm(e.target.value) }} />
     </MDBCol>
@@ -302,29 +232,29 @@ export default function SupplierDetails() {
           </TableHead>
           <TableBody>
 
-          {supplier.filter((value)=>{
+          {purchaseOrder.filter((value)=>{
   if(searchTerm===""){
     return value;
-  }else if(value.supplierName.toLowerCase().includes(searchTerm.toLowerCase())){
+  }else if(value.itemName.toLowerCase().includes(searchTerm.toLowerCase())){
     return value;
   }
 })
-.map((supp,i)=>(
+.map((porder,i)=>(
 
             // {supplier !=0 ? supplier.map((supp)=>{
             //   return (
-                <TableRow key={supp._id}>
-                  <TableCell>{supp.supplierName}</TableCell>
-                  <TableCell>{supp.supplierEmail}</TableCell>
-                  <TableCell>{supp.phoneNumber}</TableCell>
-                  <TableCell>{supp.productType}</TableCell>
-                  <TableCell>{supp.supplierType}</TableCell>
-                  <TableCell>{supp.supplierItemType}</TableCell>
-                  <TableCell>{supp.location}</TableCell>
-                  <TableCell>{supp.branchWillingToSupply}</TableCell>
-                  <TableCell>{supp.date}</TableCell>
-                  <TableCell><Link to={"/updateSup/"+supp._id} type="submit" class="btn btn-primary" ><i class="fa fa-trash"></i>  UPDATE</Link></TableCell>
-                  <TableCell><button type="submit" class="btn btn-danger" onClick={(e) => { delet(supp._id) }}><i class="fa fa-trash"></i>  DELETE</button></TableCell>
+                <TableRow key={porder._id}>
+                  <TableCell>{porder.supplierName}</TableCell>
+                  <TableCell>{porder.supplierEmail}</TableCell>
+                  <TableCell>{porder.phoneNumber}</TableCell>
+                  <TableCell>{porder.productType}</TableCell>
+                  <TableCell>{porder.supplierType}</TableCell>
+                  <TableCell>{porder.supplierItemType}</TableCell>
+                  <TableCell>{porder.location}</TableCell>
+                  <TableCell>{porder.branchWillingToSupply}</TableCell>
+                  <TableCell>{porder.date}</TableCell>
+                  <TableCell><Link to={"/updatePO/"+porder._id} type="submit" class="btn btn-primary" ><i class="fa fa-trash"></i>  UPDATE</Link></TableCell>
+                  <TableCell><button type="submit" class="btn btn-danger" onClick={(e) => { delet(porder._id) }}><i class="fa fa-trash"></i>  DELETE</button></TableCell>
                 </TableRow>
                
               
