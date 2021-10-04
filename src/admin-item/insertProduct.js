@@ -167,7 +167,7 @@ useEffect(() => {
 
                     <div className="form-group">
                         <label className="text-muted">Quantity</label>
-                        <input onChange={handleChange('item_quantity')} type="text" className="form-control" value={item_quantity} required/>
+                        <input onChange={handleChange('item_quantity')} type="number" className="form-control" value={item_quantity} required/>
                     </div>
 
                     <div className="form-group">
@@ -183,12 +183,12 @@ useEffect(() => {
                 <div className="form-group col-sm-6">
                     <div className="form-group">
                         <label className="text-muted">Product Code</label>
-                        <input onChange={handleChange('item_code')} type="text" className="form-control" value={item_code} required/>
+                        <input onChange={handleChange('item_code')} type="text" className="form-control" value={item_code} maxlength="6" required/>
                     </div>
 
                     <div className="form-group">
                         <label className="text-muted">Product Name</label>
-                        <input onChange={handleChange('item_name')} type="text" className="form-control" value={item_name} required />
+                        <input onChange={handleChange('item_name')} type="text" className="form-control" value={item_name} maxlength="40" required />
                     </div>
 
 
@@ -232,7 +232,7 @@ useEffect(() => {
                    
                     <div className="form-group">
                         <label className="text-muted">Product Price</label>
-                        <input onChange={handleChange('item_price')} type="text" className="form-control" value={item_price} required/>
+                        <input onChange={handleChange('item_price')} type="number" className="form-control" value={item_price} required/>
                     </div>
 
                 </div>

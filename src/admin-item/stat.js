@@ -63,7 +63,7 @@ const ManageOrderstats = () => {
                         ]}
                         
                         options={{
-
+                            colors: ['green','red','blue'],
                             // Just add this option
                             is3D: true,
                         }}

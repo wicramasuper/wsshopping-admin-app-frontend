@@ -38,3 +38,13 @@ export const deleteCategory= (categoryId) => {
 
 
 }
+
+export const categoryStats = () => {
+    return fetch(`${API}/admin/categoryStats`, {
+        method: 'GET'
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};

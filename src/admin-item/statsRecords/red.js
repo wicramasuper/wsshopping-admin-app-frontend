@@ -83,7 +83,7 @@ const Greenstats = () => {
                                     <td>
                                         <h4>
 
-                                            {(p.cancel * 100).toFixed(2)}
+                                            {(p.cancel * 100).toFixed(2)} %
 
 
                                         </h4>
@@ -91,7 +91,7 @@ const Greenstats = () => {
                                     <td>
                                         <h4>
 
-                                            {(p.complete * 100).toFixed(2)}
+                                            {(p.complete * 100).toFixed(2)} %
 
 
                                         </h4>

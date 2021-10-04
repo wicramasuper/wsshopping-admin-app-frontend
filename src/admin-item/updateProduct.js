@@ -164,7 +164,7 @@ const UpdateProduct = ({match}) => {
                     
                     <div className="form-group">
                         <label className="text-muted">Quantity</label>
-                        <input onChange={handleChange('item_quantity')} type="text" className="form-control" value={item_quantity} />
+                        <input onChange={handleChange('item_quantity')} type="number" className="form-control" value={item_quantity} />
                     </div>
 
                     <div className="form-group">
@@ -185,7 +185,7 @@ const UpdateProduct = ({match}) => {
 
                     <div className="form-group">
                         <label className="text-muted">Product Name</label>
-                        <input onChange={handleChange('item_name')} type="text" className="form-control" value={item_name}  />
+                        <input onChange={handleChange('item_name')} type="text" className="form-control" value={item_name} maxlength="40"  />
                     </div>
 
 
@@ -197,6 +197,10 @@ const UpdateProduct = ({match}) => {
                             <option value="Beverages">Beverages</option>
                             <option value="Fruits">Fruits</option>
                             <option value="Vegetable">Vegetable</option>
+                            <option value="Bakery">Bakery</option>
+                            <option value="Dairy">Dairy</option>
+                            <option value="HouseHold">HouseHold</option>
+                            <option value="Meat">Meat</option>
 
                         </select>
                     </div>
@@ -227,7 +231,7 @@ const UpdateProduct = ({match}) => {
                     
                     <div className="form-group">
                         <label className="text-muted">Product Price</label>
-                        <input onChange={handleChange('item_price')} type="text" className="form-control" value={item_price}/>
+                        <input onChange={handleChange('item_price')} type="number" className="form-control" value={item_price}/>
                     </div>
 
                 </div>

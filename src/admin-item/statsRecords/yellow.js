@@ -47,7 +47,7 @@ const Greenstats = () => {
 
 
 
-            <Pdf targetRef={ref} filename={date + "_" + month + "_" + year + "_" + "Red"}>
+            <Pdf targetRef={ref} filename={date + "_" + month + "_" + year + "_" + "yellow"}>
                 {({ toPdf }) => <button onClick={toPdf}>Download as PDF</button>}
             </Pdf>
 
@@ -83,7 +83,7 @@ const Greenstats = () => {
                                     <td>
                                         <h4>
 
-                                            {(p.cancel * 100).toFixed(2)}
+                                            {(p.cancel * 100).toFixed(2)} %
 
 
                                         </h4>
@@ -91,7 +91,7 @@ const Greenstats = () => {
                                     <td>
                                         <h4>
 
-                                            {(p.complete * 100).toFixed(2)}
+                                            {(p.complete * 100).toFixed(2)} %
 
 
                                         </h4>

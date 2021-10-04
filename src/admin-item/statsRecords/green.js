@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 //import Layout from '../core/layout';
 import Sidebar from '../../core/sidebar';
 
-import { getstats } from "../../Auth/admin-item/stat";
+//import { getstats } from "../../Auth/admin-item/stat";
 import { getstatsFilteredGreen } from "../../Auth/admin-item/stat";
 
 //import { Link } from 'react-router-dom';
@@ -42,25 +42,13 @@ const Greenstats = () => {
         <Sidebar>
 
 
-
-
-
-
-
-            <Pdf targetRef={ref} filename={date + "_" + month + "_" + year + "_" + "Red"}>
+            <Pdf targetRef={ref} filename={date + "_" + month + "_" + year + "_" + "green"}>
                 {({ toPdf }) => <button onClick={toPdf}>Download as PDF</button>}
             </Pdf>
 
             <div className="col-8">
 
-
-
-
-
                 <div className="Post" ref={ref}>
-
-
-
                     <table class="table">
                         <thead>
                             <tr style={{ color: 'red' }}>
@@ -83,7 +71,7 @@ const Greenstats = () => {
                                     <td>
                                         <h4>
 
-                                            {(p.cancel * 100).toFixed(2)}
+                                            {(p.cancel * 100).toFixed(2)} %
 
 
                                         </h4>
@@ -91,7 +79,7 @@ const Greenstats = () => {
                                     <td>
                                         <h4>
 
-                                            {(p.complete * 100).toFixed(2)}
+                                            {(p.complete * 100).toFixed(2)} %
 
 
                                         </h4>
